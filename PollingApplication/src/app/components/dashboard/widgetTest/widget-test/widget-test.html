@@ -1,0 +1,21 @@
+<c-row>
+  <c-col md="12" xl="6">
+    <c-widget-stat-a
+      class="mb-4"
+      color="primary"
+      [title]="'Polls Per Day'"
+    >
+      <ng-template cTemplateId="widgetValueTemplate" ngPreserveWhitespaces>
+        Total Polls : {{allPoles}}
+        <span class="fs-6 fw-normal">
+      (My Polls {{myPolls}})
+    </span>
+      </ng-template>
+      
+      <ng-template cTemplateId="widgetChartTemplate" >
+        <c-chart [data]="data" [options]="options" class="mt-3 mx-3" height="110" type="line" 
+        [style.color]="mode? 'white' : 'black'" />
+      </ng-template>
+    </c-widget-stat-a>
+  </c-col>
+</c-row>

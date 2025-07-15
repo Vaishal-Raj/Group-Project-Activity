@@ -1,0 +1,30 @@
+<div class="dropdown">
+  <button class="btn btn-light dropdown-toggle position-relative" type="button" id="dropdownMenuButton"
+          data-bs-toggle="dropdown" aria-expanded="false">
+    <i class="bi bi-bell-fill fs-5"></i>
+    <span *ngIf="(notification$ | async)?.length"
+          class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
+      {{ (notification$ | async)?.length }}
+    </span>
+  </button>
+
+  <ul class="dropdown-menu dropdown-menu-end p-2" aria-labelledby="dropdownMenuButton"
+      style="min-width: 300px; max-height: 300px; overflow-y: auto;">
+    <li class="dropdown-item text-center fw-bold">All Notifications</li>
+    <li><hr class="dropdown-divider"></li>
+    
+    <ng-container *ngIf="(notification$ | async)?.length; else noNotifications">
+      <li *ngFor="let notif of notification$ | async" class="dropdown-item small text-wrap">
+        {{ notif }}
+        <hr>
+      </li>
+      <li>
+        <button class="dropdown-item text-danger text-center" (click)="clearAll()">Clear All</button>
+      </li>
+    </ng-container>
+
+    <ng-template #noNotifications>
+      <li class="dropdown-item text-muted text-center small">No notifications</li>
+    </ng-template>
+  </ul>
+</div>

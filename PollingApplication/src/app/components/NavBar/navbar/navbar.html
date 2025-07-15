@@ -1,0 +1,88 @@
+  @if(this.user){
+    <nav class="navbar navbar-light">
+      <i class="bi bi-list" style="font-size: 2rem;" (click)="toggleSideMenu()"></i>
+    @if (showSideBar) {
+        <c-sidebar visible #sidebar1="cSidebar" class="border-end custom-sidebar">
+          <c-sidebar-header class="border-bottom custom-sidebar-header">
+            <c-sidebar-brand class="custom-sidebar-brand"><img ngSrc="../../../../assets/PLogo.png" width="400" height="200" priority alt="logo" class="sidebar-logo" (click)="openImageModal()"></c-sidebar-brand>
+            @if (showImageModal) {
+              <div class="image-modal" (click)="closeImageModal()">
+                <img src="assets/PollLogFigma.webp" alt="Full Logo" class="full-image" />
+              </div>
+            }
+            
+          </c-sidebar-header>
+
+          <c-sidebar-nav class="custom-sidebar-nav" [navItems]="navItems" (click)="handleNavClick($event)"></c-sidebar-nav>
+
+          <c-sidebar-footer
+            class="border-top custom-sidebar-footer"
+            cSidebarToggle="sidebar1"
+            toggle="unfoldable"
+            style="cursor: pointer;"
+          >
+            <button (click)="toggleSideMenu()" class="custom-sidebar-close-btn">
+              <i class="bi bi-x-circle-fill"></i>
+            </button>
+          </c-sidebar-footer>
+        </c-sidebar>
+
+      
+    }
+    
+  <a class="navbar-brand" routerLink="dashboard">Pollytix</a>
+  
+  <div class="form-inline">
+    
+    <app-theme-toggle></app-theme-toggle>
+    <app-notification-component></app-notification-component>
+   
+
+    <div class="dropdown">
+  <button
+    class="btn dropdown-toggle p-0 border-0 bg-transparent"
+    type="button"
+    id="profileDropdown"
+    data-bs-toggle="dropdown"
+    aria-expanded="false"
+  >
+    <img
+      [src]="profile_pic || 'https://cdn-icons-png.flaticon.com/512/3135/3135715.png'"
+      alt="Profile"
+      class="welcome-img rounded-circle"
+      style="width: 40px; height: 40px;"
+    />
+  </button>
+
+  <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="profileDropdown">
+    <li><a class="dropdown-item" routerLink="/profile">Profile</a></li>
+    <!-- <li><a class="dropdown-item" routerLink="/settings">Settings</a></li> -->
+    <li><hr class="dropdown-divider"></li>
+    <li><a class="dropdown-item" (click)="logout()">{{this.signInType=='google'? 'Google Signout' : 'Sign-out'}}</a></li>
+  </ul>
+</div>
+
+    
+  </div>
+
+    </nav>
+  }
+  @else {
+
+    <nav class="navbar navbar-light">
+      
+    
+  <a class="navbar-brand" routerLink="dashboard">Pollytix</a>
+  
+  <div class="form-inline">
+    
+    <app-theme-toggle></app-theme-toggle>
+    
+    
+  </div>
+
+    </nav>
+
+  }
+    
+

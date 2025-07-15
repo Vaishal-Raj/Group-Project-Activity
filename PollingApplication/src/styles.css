@@ -1,0 +1,88 @@
+
+@import '../node_modules/bootstrap-icons/font/bootstrap-icons.css';
+@import '../node_modules/bootstrap/dist/css/bootstrap.css';
+@import '../node_modules/@coreui/coreui/dist/css/coreui.min.css';
+
+@import '../node_modules/ngx-toastr/toastr.css';
+/* You can add global styles to this file, and also import other style files */
+
+html, body { height: 100%; }
+body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+
+
+/* Dark Theme Styles */
+.dark-theme {
+  background-color: #111827;
+  color: #ffffff;
+}
+
+
+.dark-theme button[mat-icon-button] {
+  background-color: white;
+}
+
+
+
+.dark-theme .btn-primary {
+  background-color: #4f46e5;
+  border-color: #4f46e5;
+}
+
+.dark-theme .form-control {
+  background-color: #333333;
+  color: #ffffff;
+  border-color: #555555;
+}
+
+.dark-theme .modal-content {
+  background-color: #242424;
+  color: white;
+}
+
+
+
+.dark-theme input,
+.dark-theme textarea,
+.dark-theme select {
+  color: white;
+  background-color: #1a1a1a; 
+  border-color: #444; 
+}
+
+.dark-theme input::placeholder,
+.dark-theme textarea::placeholder {
+  color: #ccc; 
+  opacity: 1; 
+}
+
+
+
+.dark-theme .custom-nav-item a,
+.dark-theme .custom-nav-item .nav-icon {
+  color: white !important;
+}
+.dark-theme .nav-link.active {
+  background-color: rgba(255, 255, 255, 0.08); 
+}
+
+.dark-theme .custom-nav-item a:hover {
+  background-color: rgba(255, 255, 255, 0.12);
+}
+.c-sidebar {
+  background-color: #51b535 !important; 
+}
+
+.custom-toast-blue {
+  background-color: #007BFF !important; 
+  color: white !important;
+}
+
+.custom-toast-green {
+  background-color: #28a745 !important; 
+  color: white !important;
+}
+
+.custom-toast-red {
+  background-color: #dc3545 !important; 
+  color: white !important;
+}

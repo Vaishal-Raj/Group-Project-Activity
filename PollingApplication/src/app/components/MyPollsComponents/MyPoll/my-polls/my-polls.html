@@ -1,0 +1,28 @@
+@if (polls.length) {
+    <div class="all-polls">
+        @for (poll of polls; track poll.id) {
+            <app-my-poll [poll]="poll"
+                        (edit)="fetchPagedPolls()"
+                        (delete)="onDeletePoll($event)"
+                        (viewResults)="onViewResults($event)"
+            ></app-my-poll>
+        }
+    </div>
+        <div class="pagination d-flex justify-content-between align-items-center">
+            <button class="btn btn-outline-secondary btn-sm" [disabled]="pageIndex === 1" (click)="prevPage()">Previous</button>
+            <span>Page {{ pageIndex }}</span>
+            <button class="btn btn-outline-secondary btn-sm"  [disabled]="nextPolls.length===0" (click)="nextPage()">Next</button>
+        </div> 
+}
+@else {
+  <div class="text-center no-polls-container mt-5">
+    <img
+      src="https://cdn-icons-png.flaticon.com/512/7486/7486800.png"
+      alt="No polls found"
+      class="no-polls-img mb-3"
+    />
+    <h4 class="text-muted">No Polls Found</h4>
+    <p class="text-secondary">Try creating a new poll or check back later.</p>
+  </div>
+}
+

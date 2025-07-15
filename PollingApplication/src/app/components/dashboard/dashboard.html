@@ -1,0 +1,90 @@
+<!-- Welcome Section -->
+<div class="welcome-card card shadow mb-4 border-0 text-white">
+  <div class="card-body d-flex flex-column flex-md-row align-items-center justify-content-between">
+    <div>
+      <h2 class="card-title mb-2 fw-semibold">Welcome back, {{ loggedInUsername || 'User' }}! 🎉</h2>
+      <p class="card-text fs-6">Here’s a quick look at your poll activity and stats.</p>
+    </div>
+    @if (profile_pic) {
+      <c-avatar [src]="profile_pic" class="welcome-img mt-3 mt-md-0 shadow" />
+    }
+    @else {
+      <c-avatar src="https://cdn-icons-png.flaticon.com/512/3135/3135715.png" class="welcome-img mt-3 mt-md-0 shadow" />
+    }
+  </div>
+</div>
+
+<!-- Main Dashboard Container -->
+<div class="container mt-4 dashboard-container">
+  <h2 class="section-title mb-4">📊 Your Stats</h2>
+
+  <!-- Stats Cards -->
+  <div class="row g-4">
+    <div class="col-md-6 col-xl-3">
+      <div class="stat-card card text-white bg-primary shadow h-100">
+        <div class="card-body text-center">
+          <h6 class="card-title">Total Polls</h6>
+          <h2 id="totalPollsEl">0</h2>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-md-6 col-xl-3">
+      <div class="stat-card card text-white bg-success shadow h-100">
+        <div class="card-body text-center">
+          <h6 class="card-title">My Polls</h6>
+          <h2 id="myPollsEl">0</h2>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-md-6 col-xl-3">
+      <div class="stat-card card text-white bg-info shadow h-100">
+        <div class="card-body text-center">
+          <h6 class="card-title">Total Votes</h6>
+          <h2 id="totalVotesEl">0</h2>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-md-6 col-xl-3">
+      <div class="stat-card card text-white bg-warning shadow h-100">
+        <div class="card-body text-center">
+          <h6 class="card-title">My Votes</h6>
+          <h2 id="myVotesEl">0</h2>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Charts Section -->
+  @if (this.dataLoaded) {
+    <div class="chart-data mt-5">
+      <h2 class="section-title mb-4">📈 Dashboard Overview</h2>
+      <div class="charts-flex">
+        <app-bar-chart [barChartData]="barChartData"></app-bar-chart>
+        <app-line-chart [lineChartData]="lineChartData"></app-line-chart>
+        <div class="widget">
+          <app-widget-test [allPoles]="totalPolls" [myPolls]="myPolls" [lineChartData]="lineChartData"></app-widget-test>
+        </div>
+      </div>
+    </div>
+  }
+
+  <!-- Recent Polls Section -->
+  <div class="card mt-5 shadow-sm">
+    <div class="card-header bg-light">
+      <h5 class="mb-0 fw-semibold">🕓 Recent Polls</h5>
+    </div>
+    <ul class="list-group list-group-flush">
+      @for (poll of recentPolls; track $index) {
+        <li class="list-group-item d-flex justify-content-between align-items-center" (click)="goToPoll()" style="cursor: pointer;">
+          <div>
+            <strong>{{ poll.question }}</strong>
+            <div class="text-muted small">By {{ poll.createdByUsername }} on {{ poll.createdAt | date: 'medium' }}</div>
+          </div>
+        </li>
+      }
+    </ul>
+  </div>
+</div>

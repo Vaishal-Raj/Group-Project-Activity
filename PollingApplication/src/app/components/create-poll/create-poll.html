@@ -1,0 +1,42 @@
+<div class="container mt-4">
+  <h2>Create New Poll</h2>
+
+  <form [formGroup]="pollForm" (ngSubmit)="submitPoll()">
+
+    <!-- Question Input -->
+    <div class="mb-3">
+      <label for="question" class="form-label">Poll Question</label>
+      <input id="question" class="form-control" formControlName="question" />
+      @if (pollForm.get('question')?.invalid && pollForm.get('question')?.touched) {
+        <div class="text-danger">Question is required.</div>
+      }
+    </div>
+
+    <div formArrayName="options">
+      <label class="form-label">Options</label>
+
+      @for (option of options.controls; track $index) {
+        <div class="d-flex mb-2">
+          <input class="form-control me-2" [formControlName]="$index" />
+          @if (options.length > 2) {
+            <button type="button" class="btn btn-danger" (click)="removeOption($index)">Remove</button>
+          }
+        </div>
+      }
+
+      <button type="button" class="btn btn-secondary mb-3" (click)="addOption()">Add Option</button>
+    </div>
+
+    <div class="mb-3">
+      <label for="startTime" class="form-label">Start Time</label>
+      <input type="datetime-local" id="startTime" class="form-control" formControlName="startTime" />
+    </div>
+
+    <div class="mb-3">
+      <label for="endTime" class="form-label">End Time</label>
+      <input type="datetime-local" id="endTime" class="form-control" formControlName="endTime" />
+    </div>
+
+    <button type="submit" class="btn btn-primary" [disabled]="pollForm.invalid">Create Poll</button>
+  </form>
+</div>

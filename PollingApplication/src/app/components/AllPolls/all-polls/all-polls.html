@@ -1,0 +1,23 @@
+<div class="filter-bar d-flex flex-wrap justify-content-between align-items-center mb-4 px-3 gap-2">
+  <input
+    type="text"
+    class="form-control w-auto"
+    placeholder="Search polls ..."
+    [(ngModel)]="searchTerm"
+    (input)="filterPolls()" />
+
+  <select class="form-select w-auto" [(ngModel)]="selectedFilter" (change)="filterPolls()">
+    <option value="all">All</option>
+    <option value="active">Active</option>
+    <option value="inactive">Inactive</option>
+    <option value="recent">Recent</option>
+  </select>
+</div>
+
+<div class="all-poll-wrapper d-flex flex-wrap gap-4 justify-content-center">
+  @for (poll of this.filteredPolls; track poll.id) {
+    <div class="all-poll-container">
+      <app-poll [poll]="poll" (updatePoll)="loadUsers()"></app-poll>
+    </div>
+  }
+</div>

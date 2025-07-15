@@ -1,0 +1,32 @@
+.all-polls{
+    margin-top: 50px;
+}
+.no-polls-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  animation: fadeIn 0.6s ease-in-out;
+}
+
+.no-polls-img {
+  width: 120px;
+  height: 120px;
+  opacity: 0.7;
+  transition: transform 0.3s;
+}
+
+.no-polls-img:hover {
+  transform: scale(1.05);
+  opacity: 1;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}

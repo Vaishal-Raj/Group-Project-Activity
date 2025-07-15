@@ -1,0 +1,102 @@
+<div class="poll-container card shadow rounded p-3 mb-4">
+  <h4 class="fw-semibold mb-3">{{ poll?.question }}</h4>
+
+  <div class="poll-meta small text-muted mb-2">
+    <div><strong>Created by:</strong> {{ poll?.createdByUsername }}</div>
+    <div><strong>Start:</strong> {{ formatDate(poll?.startTime) }}</div>
+    <div><strong>End:</strong> {{ formatDate(poll?.endTime) }}</div>
+    <div><strong>Status:</strong>
+      @if (getTimeUntilStart()) {
+        <span class="text-success">Poll opens in {{ getTimeUntilStart() }}</span>
+      } @else if (status) {
+        <span class="text-success">{{ getTimeLeft() }}</span>
+      } @else {
+        <span class="text-danger">Poll has ended</span>
+      }
+    </div>
+  </div>
+
+  @if(getTimeUntilStart()) {
+    <div class="alert alert-warning" role="alert">
+      The poll will open soon
+    </div>
+  } @else if (!status) {
+    <div class="alert alert-danger" role="alert">
+      The poll has ended.
+    </div>
+  } @else {
+    <div class="alert alert-success" role="alert">
+      The poll is live
+    </div>
+  }
+
+  <button
+    type="button"
+    class="btn btn-outline-secondary mb-3"
+    (click)="toggleOptions()"
+    
+    [disabled]="getTimeUntilStart()"
+  >
+    @if (!status) {
+      {{ showOptions ? 'Hide Results' : 'Show Results' }}
+    } @else {
+      {{ showOptions ? 'Hide Options' : 'Join Poll' }}
+    }
+  </button>
+
+  @if (showOptions) {
+    <div class="options-section">
+
+      @for (option of poll?.options; track option.id) {
+        <div
+          class="option-item d-flex justify-content-between align-items-center rounded px-3 py-2 mb-2"
+          [ngClass]="{
+            'bg-primary text-white': selectedOptionId === option.id,
+            'bg-light': selectedOptionId !== option.id
+          }"
+        >
+          <label class="form-check-label d-flex align-items-center w-100">
+            <input
+              type="radio"
+              class="form-check-input me-2"
+              name="option"
+              [value]="option.id"
+              [(ngModel)]="selectedOptionId"
+              [disabled]="!status"
+            />
+            <span>{{ option.text }}</span>
+          </label>
+
+          <span *ngIf="!status" class="badge bg-secondary ms-2">
+            {{ option.voteCount }} votes ({{ getVotePercentage(option.voteCount) }}%)
+          </span>
+        </div>
+      }
+
+      <div class="text-end mt-3" *ngIf="status">
+        <button
+          *ngIf="selectedOptionId !== 0"
+          class="btn btn-danger me-2"
+          (click)="removeVote()"
+          [disabled]="loading || !status"
+        >
+          {{ loading ? 'Removing...' : 'Remove Vote' }}
+        </button>
+
+        <button
+          class="btn btn-success"
+          (click)="castVote(selectedOptionId)"
+          [disabled]="loading || selectedOptionId === 0"
+        >
+          {{ loading ? 'Voting...' : 'Vote' }}
+        </button>
+      </div>
+
+      @if (errorMessage) {
+        <div class="text-danger mt-2 text-end">
+          {{ errorMessage }}
+        </div>
+      }
+    </div>
+  }
+</div>

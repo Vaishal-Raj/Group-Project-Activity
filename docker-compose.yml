@@ -1,0 +1,49 @@
+version: '3.9'
+
+services:
+  api:
+    build:
+      context: ./PollingAPI/
+      dockerfile: Dockerfile
+    container_name: polling-api
+    ports:
+      - "5000:90"
+    depends_on:
+      - db
+    environment:
+      ASPNETCORE_URLS: "http://+:90"
+      ConnectionStrings__DefaultConnection: "Host=db;Port=5432;Database=PollingApp;Username=postgres;Password=P@ssw0rd"
+    networks:
+      - polling-network
+  db:
+    image: postgres:latest
+    container_name: postgres-db
+    restart: always
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: P@ssw0rd
+      POSTGRES_DB: PollingApp
+    ports:
+      - "5433:5432"
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+    networks:
+      - polling-network
+  
+  frontend:
+    build:
+      context: ./PollingApplication/
+      dockerfile: Dockerfile
+    container_name: polling-frontend
+    ports:
+      - "4200:80"
+    depends_on:
+      - api
+    networks:
+      - polling-network
+networks:
+  polling-network:
+    driver: bridge
+
+volumes:
+  pgdata:

@@ -1,0 +1,15 @@
+.all-poll-container {
+  flex: 1 1 300px;  
+  max-width: 350px;
+}
+
+.filter-bar {
+  margin-top: 20px;
+  gap: 1rem;
+  flex-wrap: wrap;
+}
+
+.filter-bar input,
+.filter-bar select {
+  min-width: 200px;
+}

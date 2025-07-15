@@ -1,0 +1,29 @@
+.poll-card-wrapper {
+  display: flex;
+  justify-content: center;
+}
+
+.poll-card {
+  width: 90%;
+  max-width: 700px;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  border: 1px solid #e0e0e0;
+}
+
+.poll-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+  border-color: #007bff30;
+}
+
+
+:host-context(.dark-theme){
+  
+}
+@media (max-width: 768px) {
+  .poll-card {
+    width: 95%;
+  }
+}
+
+

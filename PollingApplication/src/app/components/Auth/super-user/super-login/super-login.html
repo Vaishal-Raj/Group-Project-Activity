@@ -1,0 +1,22 @@
+<div class="container mt-4">
+  <h2>Super User Login</h2>
+  <form [formGroup]="loginForm" (ngSubmit)="login()">
+    <div class="mb-3">
+      <label>Username</label>
+      <input type="text" formControlName="username" class="form-control" />
+    </div>
+
+    <div class="mb-3">
+      <label>Password</label>
+      <input type="password" formControlName="password" class="form-control" />
+    </div>
+    @if (errorMessgae) {
+        <div class="text-danger" >{{ errorMessgae }}</div>
+
+    }
+
+    <button type="submit" class="btn btn-primary" [disabled]="loginForm.invalid">
+      Login
+    </button>
+  </form>
+</div>

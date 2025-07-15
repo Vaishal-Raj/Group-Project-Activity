@@ -1,0 +1,32 @@
+@if (user) {
+    
+        <div class="card shadow-sm h-100">
+          <div class="card-body d-flex flex-column justify-content-between">
+            <div>
+              <h5 class="card-title mb-1">{{ user.username }}</h5>
+              <p class="text-muted mb-2">Role: <strong>{{ user.role }}</strong></p>
+            </div>
+            <div class="mt-auto d-flex gap-2 flex-wrap" >
+                @if (user.role!=='Moderator') {
+                    <button 
+                        class="btn btn-sm btn-success"  
+                        (click)="promoteUser(user)">
+                        Promote
+                    </button>
+                }@else if (user.role==='Moderator') {
+                    <button 
+                        class="btn btn-sm btn-warning" 
+                        (click)="demoteUser(user)">
+                        Demote
+                    </button>
+                }
+
+              <button 
+                class="btn btn-sm btn-danger" 
+                (click)="deleteUser(user.username)">
+                Delete
+              </button>
+            </div>
+          </div>
+        </div>
+}

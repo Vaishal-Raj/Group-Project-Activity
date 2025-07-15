@@ -1,0 +1,33 @@
+
+<div class="poll-card-wrapper">
+  <div class="poll-card card shadow-sm p-3 mb-3 rounded">
+    @if(!editMode){
+      <h5 class="fw-semibold">{{ poll?.question }}</h5>
+      <p class="text-muted small mb-2">Created on {{ poll?.startTime | date: 'mediumDate' }}</p>
+      <p class="text-muted small mb-2">Created By {{ poll?.createdByUsername}}</p>
+      <p class="fw-semibold mb-2"
+      [ngClass]="{
+        'text-success': this.status === 'Live',
+        'text-warning': this.status === 'Yet to Open',
+        'text-danger': this.status === 'Poll has ended'
+      }">
+      Status: {{ status }}
+    </p>
+      <div class="d-flex justify-content-end gap-2" style="margin-bottom: 20px;">
+        <button class="btn btn-outline-primary btn-sm" (click)="enableEdit()">Edit</button>
+        <button class="btn btn-outline-danger btn-sm" (click)="onDelete()">Delete</button>
+        <button class="btn btn-outline-secondary btn-sm" (click)="onViewResults()">{{this.showChart? 'Hide Results':'View Results'}}</button>
+      </div>
+    }
+    @else {
+      <app-edit-poll [poll]="poll" (pollUpdated)="onEdit()" (cancel)="cancelEdit()"></app-edit-poll>
+    }
+
+    @if (this.showChart) {
+      <app-view-result [poll]="poll"></app-view-result>
+    }
+  </div>
+</div>
+
+
+

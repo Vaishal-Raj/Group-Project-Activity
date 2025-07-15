@@ -1,0 +1,29 @@
+<div class="auth-container">
+  @if (isLoginVisible) {
+    <div class="auth-panel show">
+      <app-login></app-login>
+      <button class="toggle-button" (click)="toggleView()">Don't have an account? Sign up</button>
+    </div>
+  } @else {
+    <div class="auth-panel show">
+      <app-register></app-register>
+      <button class="toggle-button" (click)="toggleView()">Already have an account? Login</button>
+    </div>
+  }
+</div>
+<div class="oauth-container">
+  <p>Or</p>
+  <button class="oauth-btn google" (click)="signInWithGoogle()">
+    <img src="https://img.icons8.com/?size=100&id=17949&format=png&color=000000" alt="Google" />
+    Sign in with Google
+  </button>
+  <!-- <div class="super-login-btn">
+    <button type="button" class="btn btn-primary" routerLink="super-login">
+      <span class="badge badge-light">SuperUser ?</span>
+    </button>
+  </div> -->
+  
+
+</div>
+
+

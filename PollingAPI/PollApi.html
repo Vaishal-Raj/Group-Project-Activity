@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="./style.css"/>
+    <title>Document</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/microsoft-signalr/8.0.0/signalr.min.js"></script>
+
+</head>
+<body>
+    <h1>SignalR Client</h1>
+    <h1>Available Polls</h1>
+    <div id="poll-list">Loading polls....</div>
+    <div id="status">Not Connected to any Poll</div>
+    <div id="poll-updates"></div>
+
+    <script>
+        const connection = new signalR.HubConnectionBuilder()
+                                        .withUrl("http://localhost:5166/pollHub")
+                                        .build();
+        connection.start()
+        .then(()=>{
+            console.log("This is the client\nConnected to Polling Hub");
+            document.getElementById("status").textContent = "Connected to pollHub";
+            fetchPolls();
+            console.log(optionTextMap);
+        })
+        .catch(err=>{
+            document.getElementById("status").innerText = "Failed to connect";
+            console.log(err);
+        });
+        
+        const optionTextMap={};
+
+        async function fetchPolls() {
+            try {
+                const response = await fetch("http://localhost:5166/api/Poll", {
+                    method: "GET",
+                    headers: {
+                        "Content-Type": "application/json"
+                    }
+                });
+
+                const pollsJson = await response.json();
+                console.log(pollsJson);
+
+                const polls = pollsJson.data.$values; 
+
+                const pollList = document.getElementById("poll-list");
+                pollList.innerHTML = "";
+
+                polls.forEach(poll => {
+                    poll.options.$values.forEach(option => {
+                        optionTextMap[option.id] = option.text;
+                    });
+                    const div = document.createElement("div");
+                    div.id=`poll-${poll.id}`;
+                    div.innerHTML = `
+                        <strong>Poll ID - ${poll.id} ---- ${poll.question}</strong>
+                        <button onclick="joinPoll(${poll.id})">Join Poll</button>
+                        <div class="poll-options"></div>
+                    `;
+                    pollList.appendChild(div);
+                });
+            } catch (error) {
+                document.getElementById("poll-list").innerText = "Failed to load polls.";
+                console.error("Error fetching polls:", error);
+            }
+        }
+        
+        async function joinPoll(pollId) {
+            try{
+                await connection.invoke("JoinPollGroup",`Poll-${pollId}`);
+                console.log(`Poll-${pollId}`) ;          
+
+                document.getElementById("status").innerText=`Joined Poll ID : ${pollId}`; 
+
+                //fetching poll details
+                const res = await fetch(`http://localhost:5166/api/Poll/${pollId}`,{
+                        method:"GET",
+                        headers : {
+                            "Content-Type":"application/json"
+                        }
+                });
+                const poll = await res.json();
+                renderPollOptions(poll);
+            }catch(err){
+                console.error("Failed to join group:", err);
+            }
+        }
+
+        
+        const renderPollOptions = (poll)=>{
+            const pollContainer=document.querySelector(`#poll-${poll.data.id} .poll-options`)
+            pollContainer.innerHTML = "";
+            poll.data.options.$values.forEach(option=>{
+                const btn = document.createElement("button");
+                btn.textContent=option.text;
+                console.log(poll.data.id,option.id);
+                btn.onclick=()=>castVote(poll.data.id,option.id);
+                pollContainer.appendChild(btn);
+
+            })
+            document.body.appendChild(container);
+        }
+        async function castVote(pollId, optionId) {
+            await fetch("http://localhost:5166/api/Vote", {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({ pollId, optionId })
+            });
+        }
+
+        connection.on("ReceiveVoteUpdate",(data)=>{
+            console.log("mappings : ",optionTextMap);
+            console.log("SignalR received data:", data); 
+            const optionText=optionTextMap[data.optionId] || `Option ${data.optionId}`;
+            const updatesDiv = document.getElementById("poll-updates");
+            const msg = document.createElement("div");
+            msg.textContent=`Poll ${data.pollId} - "${optionText}" has ${data.updatedVoteCount} votes`;
+            updatesDiv.appendChild(msg);
+        })
+    </script>
+</body>
+</html>

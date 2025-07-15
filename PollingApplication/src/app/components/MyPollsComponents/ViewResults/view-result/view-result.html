@@ -1,0 +1,39 @@
+@if (showChart()) {
+<div class="poll-results-container">
+  <h5 class="mb-4 fw-bold">Poll Statistics</h5>
+
+  <div class="charts-wrapper">
+    <div class="chart-box">
+      <canvas baseChart
+              [type]="'bar'"
+              [data]="barChartData"
+              [options]="barChartOptions">
+      </canvas>
+    </div>
+
+    <div class="chart-box">
+      <canvas baseChart
+              [type]="'pie'"
+              [data]="pieChartData"
+              [options]="pieChartOptions">
+      </canvas>
+    </div>
+  </div>
+  <div *ngIf="votes.length > 0" class="mt-4">
+  <h5 class="fw-semibold">Votes</h5>
+  <ul class="list-group">
+    <li *ngFor="let vote of votes" class="list-group-item d-flex justify-content-between align-items-center">
+      <span><strong>User:</strong> {{ vote.userId }}</span>
+      <span><strong>Option:</strong> {{ getOptionText(vote.optionId) }}</span>
+    </li>
+  </ul>
+</div>
+</div>
+
+}
+@else {
+    <div class="alert alert-danger" style="margin-top: 10px;width: 50%; text-align: center;" role="alert">
+    Poll Data not available
+    </div>
+}
+

@@ -1,0 +1,50 @@
+
+<div class="profile-card card shadow rounded p-4 mx-auto mt-4">
+  <div class="text-center">
+    <img
+      [src]="profilePicture || 'https://cdn-icons-png.flaticon.com/512/3135/3135715.png'"
+      class="profile-img mb-3"
+      alt="Profile Picture"
+    />
+
+    <h4 class="fw-semibold">{{ username || 'Guest' }}</h4>
+
+    <p class="text-muted">
+      <i class="bi bi-person-badge me-1"></i> Signed in via:
+      <span class="fw-bold text-capitalize">{{ signInType || 'Local' }}</span>
+    </p>
+
+    @if (this.role) {
+      <p class="text-muted">
+        <i class="bi bi-shield-lock me-1"></i> Role:
+        <span class="badge bg-info text-dark text-uppercase">{{ role }}</span>
+      </p>
+    }
+    
+
+    <div *ngIf="uploading" class="text-center mt-3">
+      <div class="spinner-border text-primary" role="status"></div>
+    </div>
+
+    <div class="mt-3 d-flex justify-content-center gap-2 flex-wrap">
+      <label class="btn btn-outline-secondary btn-sm" title="Upload new profile picture">
+        Upload Picture
+        <input type="file" accept="image/*" hidden (change)="onProfilePicSelected($event)" />
+      </label>
+
+      <button class="btn btn-outline-warning btn-sm" (click)="resetProfilePicture()" title="Reset to default">
+        Reset Picture
+      </button>
+
+      <button class="btn btn-outline-danger btn-sm" (click)="logout()" title="Logout and end session">
+        Logout
+      </button>
+    </div>
+  </div>
+  <div class="card mt-3 p-3 shadow-sm">
+    <h5 class="fw-semibold mb-2"><i class="bi bi-bar-chart-line me-2"></i>Poll Activity</h5>
+    <p><strong>Polls Created:</strong> {{ this.myPolls }}</p>
+    <p><strong>Polls Voted:</strong> {{ this.myVotes || 0 }}</p>
+  </div>
+
+</div>
