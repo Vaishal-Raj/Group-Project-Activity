@@ -76,7 +76,7 @@ export class SingleUserComponent implements OnInit {
           text: `${user.username} is now a Moderator.`,
           confirmButtonColor: '#28a745'
         });
-       
+        this.userUpdated.emit();
         // this.router.navigate(['dashboard']);
       },
       error: () => {
@@ -100,7 +100,7 @@ export class SingleUserComponent implements OnInit {
           text: `${user.username} is now a Voter.`,
           confirmButtonColor: '#ffc107'
         });
-      
+        this.userUpdated.emit();
         // this.router.navigate(['dashboard']);
       },
       error: () => {
