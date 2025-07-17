@@ -149,4 +149,9 @@ public class PollService : IPollService
         }
         return PollMapper.ToDto(deletedPoll);
     }
+
+    public async Task<bool> ExtendPollAsync(int pollId, DateTime newEndTime, string username)
+    {
+        return await _pollRepo.ExtendPollAsync(pollId, newEndTime, username);
+    }
 }

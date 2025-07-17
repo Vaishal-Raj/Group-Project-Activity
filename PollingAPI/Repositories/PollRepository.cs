@@ -45,4 +45,21 @@ public class PollRepository : Repository<int, Poll>,IPollRepository
         }
         return poll;            
     }
+
+    public async Task<bool> ExtendPollAsync(int pollId, DateTime newEndTime, string username)
+    {
+        var poll = await _pollContext.Polls.FirstOrDefaultAsync(p => p.Id == pollId);
+        if (poll == null) return false;
+        if (poll.EndTime == null || DateTime.UtcNow > poll.EndTime.Value) return false;
+        if (poll.CreatedByUsername != username) return false;
+        if (poll.ExtensionCount >= poll.MaxExtensions) return false;
+        if (newEndTime <= poll.EndTime.Value) return false;
+
+        poll.EndTime = newEndTime;
+        poll.ExtensionCount += 1;
+
+        _pollContext.Polls.Update(poll);
+        await _pollContext.SaveChangesAsync();
+        return true;
+    }
 }

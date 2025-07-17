@@ -93,6 +93,22 @@ namespace PollingAPI.Controllers
             return Ok(deletedPoll);
         }
 
+        [HttpPost("{id}/extend")]
+        [Authorize]
+        public async Task<IActionResult> ExtendPoll(int id, [FromQuery] DateTime newEndTime)
+        {
+            var username = User.FindFirstValue(ClaimTypes.NameIdentifier) ?? User.Identity?.Name;
+            if (username == null) return Unauthorized();
+
+            var result = await _pollService.ExtendPollAsync(id, newEndTime, username);
+            if (!result)
+                return BadRequest("Poll cannot be extended. Either it does not exist, it's expired, the new end time is invalid, you exceeded the extension limit, or you're not the creator.");
+
+            return Ok(new { success = true, message = "Poll duration extended successfully." });
+        }
+
 
     }
+
+    
 }

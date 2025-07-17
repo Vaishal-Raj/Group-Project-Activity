@@ -6,4 +6,5 @@ namespace PollingAPI.Interfaces;
 public interface IPollRepository : IRepository<int,Poll>
 {
     public Task<ICollection<Poll>> GetPaginatedAsync(int pageIndex, int pageSize,string userId);
+    Task<bool> ExtendPollAsync(int pollId, DateTime newEndTime, string username);
 }

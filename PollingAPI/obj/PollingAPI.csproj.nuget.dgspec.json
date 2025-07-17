@@ -1,20 +1,20 @@
 {
   "format": 1,
   "restore": {
-    "/Users/vaishal/Desktop/Docker__Test/PollingAPI/PollingAPI.csproj": {}
+    "/Users/presidio/Desktop/Group-Project-Activity-main/PollingAPI/PollingAPI.csproj": {}
   },
   "projects": {
-    "/Users/vaishal/Desktop/Docker__Test/PollingAPI/PollingAPI.csproj": {
+    "/Users/presidio/Desktop/Group-Project-Activity-main/PollingAPI/PollingAPI.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "/Users/vaishal/Desktop/Docker__Test/PollingAPI/PollingAPI.csproj",
+        "projectUniqueName": "/Users/presidio/Desktop/Group-Project-Activity-main/PollingAPI/PollingAPI.csproj",
         "projectName": "PollingAPI",
-        "projectPath": "/Users/vaishal/Desktop/Docker__Test/PollingAPI/PollingAPI.csproj",
-        "packagesPath": "/Users/vaishal/.nuget/packages/",
-        "outputPath": "/Users/vaishal/Desktop/Docker__Test/PollingAPI/obj/",
+        "projectPath": "/Users/presidio/Desktop/Group-Project-Activity-main/PollingAPI/PollingAPI.csproj",
+        "packagesPath": "/Users/presidio/.nuget/packages/",
+        "outputPath": "/Users/presidio/Desktop/Group-Project-Activity-main/PollingAPI/obj/",
         "projectStyle": "PackageReference",
         "configFilePaths": [
-          "/Users/vaishal/.nuget/NuGet/NuGet.Config"
+          "/Users/presidio/.nuget/NuGet/NuGet.Config"
         ],
         "originalTargetFrameworks": [
           "net8.0"
@@ -37,7 +37,8 @@
           "enableAudit": "true",
           "auditLevel": "low",
           "auditMode": "direct"
-        }
+        },
+        "SdkAnalysisLevel": "9.0.300"
       },
       "frameworks": {
         "net8.0": {
@@ -109,6 +110,20 @@
           ],
           "assetTargetFallback": true,
           "warn": true,
+          "downloadDependencies": [
+            {
+              "name": "Microsoft.AspNetCore.App.Ref",
+              "version": "[8.0.17, 8.0.17]"
+            },
+            {
+              "name": "Microsoft.NETCore.App.Host.osx-x64",
+              "version": "[8.0.17, 8.0.17]"
+            },
+            {
+              "name": "Microsoft.NETCore.App.Ref",
+              "version": "[8.0.17, 8.0.17]"
+            }
+          ],
           "frameworkReferences": {
             "Microsoft.AspNetCore.App": {
               "privateAssets": "none"
@@ -117,7 +132,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "/usr/local/share/dotnet/sdk/8.0.410/PortableRuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "/usr/local/share/dotnet/sdk/9.0.301/PortableRuntimeIdentifierGraph.json"
         }
       }
     }

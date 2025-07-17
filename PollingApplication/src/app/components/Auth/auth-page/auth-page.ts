@@ -17,7 +17,7 @@ export class AuthPage {
     this.isLoginVisible = !this.isLoginVisible;
   }
   signInWithGoogle() {
-    window.location.href = 'http://localhost:5000/auth/google-login';
+    window.location.href = 'http://localhost:5166/auth/google-login';
     
   }
 

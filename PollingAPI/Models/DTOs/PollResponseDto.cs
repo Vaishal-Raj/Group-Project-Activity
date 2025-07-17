@@ -14,4 +14,7 @@ public class PollResponseDto
 
     public DateTime? startTime { get; set; }
     public DateTime? endTime { get; set; }
+
+    public int ExtensionCount { get; set; }
+    public int MaxExtensions { get; set; } = 2;
 }

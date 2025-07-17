@@ -37,7 +37,7 @@ export class NotificationService {
   public startConnection(){
     if(this.hubConnection) return;
     this.hubConnection = new signalR.HubConnectionBuilder()
-            .withUrl('http://localhost:5000/pollHub')
+            .withUrl('http://localhost:5166/pollHub')
             .withAutomaticReconnect()
             .build();
 

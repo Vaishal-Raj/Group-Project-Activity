@@ -1,0 +1,16 @@
+.container {
+  background: #f8f9fa;
+  padding: 20px;
+  border-radius: 10px;
+  border: 1px solid #dee2e6;
+}
+
+h5 {
+  font-weight: 600;
+  color: #343a40;
+}
+
+input[type="datetime-local"] {
+  border-radius: 5px;
+  border: 1px solid #ced4da;
+}

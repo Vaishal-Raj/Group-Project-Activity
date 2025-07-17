@@ -16,7 +16,9 @@ public static class PollMapper
             CreatedAt = poll.CreatedAt,
             Options = poll.Options?.Select(OptionMapper.ToDto).ToList(),
             startTime = poll.StartTime,
-            endTime= poll.EndTime
+            endTime= poll.EndTime,
+            ExtensionCount = poll.ExtensionCount,
+            MaxExtensions = poll.MaxExtensions
         };
     }
 

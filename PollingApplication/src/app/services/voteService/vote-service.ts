@@ -6,7 +6,7 @@ import { VoteDto } from '../../models/voteModels';
   providedIn: 'root'
 })
 export class VoteService {
-  private baseUrl='http://localhost:5000/api/Vote';
+  private baseUrl='http://localhost:5166/api/Vote';
 
   constructor(private http:HttpClient) { }
 
