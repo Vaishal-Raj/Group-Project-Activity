@@ -9,9 +9,12 @@ namespace PollingAPI.Repositories;
 public class PollRepository : Repository<int, Poll>,IPollRepository
 {
     private readonly PollContext _pollContext;
-    public PollRepository(PollContext context) : base(context)
+    private readonly IEmailService _emailService;
+
+    public PollRepository(PollContext context, IEmailService emailService) : base(context)
     {
         _pollContext = context;
+        _emailService = emailService;
     }
 
     public override async Task<ICollection<Poll>> GetAllAsync()
@@ -60,6 +63,25 @@ public class PollRepository : Repository<int, Poll>,IPollRepository
 
         _pollContext.Polls.Update(poll);
         await _pollContext.SaveChangesAsync();
+
+        // Notify all users via email
+        string link = "http://localhost:4200/my-polls";
+        string subject = "⏳ Poll Deadline Extended - You've Got More Time!";
+        string message = $"""
+        Hey there,
+
+        Good news! The expiration time for the poll **"{poll.Question}"** has been extended by **{username}**.
+
+        If you haven't voted yet, there's still time to share your thoughts!
+
+        👉 [Click here to vote now]({link})
+
+        Don't miss your chance to make a difference.  
+        Best,  
+        **Pollytics Team**
+        """;
+
+        await _emailService.SendMessageToAllUsersAsync(subject, message);
         return true;
     }
 }

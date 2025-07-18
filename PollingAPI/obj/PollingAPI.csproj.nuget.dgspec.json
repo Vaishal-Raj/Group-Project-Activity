@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "/Users/presidio/Desktop/Group-Project-Activity-main/PollingAPI/PollingAPI.csproj": {}
+    "/Users/presidio/Desktop/Group-Project-Activity/PollingAPI/PollingAPI.csproj": {}
   },
   "projects": {
-    "/Users/presidio/Desktop/Group-Project-Activity-main/PollingAPI/PollingAPI.csproj": {
+    "/Users/presidio/Desktop/Group-Project-Activity/PollingAPI/PollingAPI.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "/Users/presidio/Desktop/Group-Project-Activity-main/PollingAPI/PollingAPI.csproj",
+        "projectUniqueName": "/Users/presidio/Desktop/Group-Project-Activity/PollingAPI/PollingAPI.csproj",
         "projectName": "PollingAPI",
-        "projectPath": "/Users/presidio/Desktop/Group-Project-Activity-main/PollingAPI/PollingAPI.csproj",
+        "projectPath": "/Users/presidio/Desktop/Group-Project-Activity/PollingAPI/PollingAPI.csproj",
         "packagesPath": "/Users/presidio/.nuget/packages/",
-        "outputPath": "/Users/presidio/Desktop/Group-Project-Activity-main/PollingAPI/obj/",
+        "outputPath": "/Users/presidio/Desktop/Group-Project-Activity/PollingAPI/obj/",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "/Users/presidio/.nuget/NuGet/NuGet.Config"
@@ -93,6 +93,10 @@
             "Swashbuckle.AspNetCore": {
               "target": "Package",
               "version": "[6.6.2, )"
+            },
+            "System.Text.RegularExpressions": {
+              "target": "Package",
+              "version": "[4.3.1, )"
             },
             "log4net": {
               "target": "Package",
