@@ -140,7 +140,7 @@ export class EditPoll implements OnInit {
     this.performUpdate();
   }
 
-  private performUpdate(): void {
+  public performUpdate(): void {
     this.loading = true;
     const formData = CreatePollDto.fromForm(this.editForm.value);
 
