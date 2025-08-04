@@ -16,12 +16,14 @@ public class PollService : IPollService
     private readonly IPollRepository _pollRepo;
     private readonly PollContext _context;
     private readonly IHubContext<PollingHub> _hubContext;
+    private readonly IEmailService _emailService;
 
-    public PollService(IPollRepository pollRepo, PollContext pollContext, IHubContext<PollingHub> hubContext)
+    public PollService(IPollRepository pollRepo, PollContext pollContext, IHubContext<PollingHub> hubContext, IEmailService emailService)
     {
         _pollRepo = pollRepo;
         _context = pollContext;
         _hubContext = hubContext;
+        _emailService = emailService;
     }
     public async Task<PollResponseDto> CreatePollAsync(CreatePollDto dto, string username)
     {
@@ -46,6 +48,25 @@ public class PollService : IPollService
 
                 });
         }
+
+        // Notify all users via email
+        string link = "http://localhost:4200/my-polls";
+        string subject = "📊 A New Poll Has Been Created on Pollytics!";
+        string message = $"""
+        Hi there,
+
+        A new poll titled **"{poll.Question}"** has just been created by **{username}** on the Pollytics Poll App!
+
+        We’d love to hear your opinion. Your voice matters!
+
+        👉 [Click here to participate in the poll]({link})
+
+        Thanks for being part of our polling community.  
+        Warm regards,  
+        **Pollytics Team**
+        """;
+
+        await _emailService.SendMessageToAllUsersAsync(subject, message);
         
         return PollMapper.ToDto(result);
     }
@@ -121,6 +142,25 @@ public class PollService : IPollService
 
                 });
         }
+
+        // Notify all users via email
+        string link = "http://localhost:4200/my-polls";
+        string subject = "✏️ A Poll Has Been Updated on Pollytics";
+        string message = $"""
+        Hello,
+
+        The poll titled **"{existingPoll.Question}"** has been updated by **{username}**.
+
+        Please review the changes and cast your vote or update your response if necessary.
+
+        👉 [View the updated poll here]({link})
+
+        We appreciate your active participation.  
+        Cheers,  
+        **Pollytics Team**
+        """;
+        await _emailService.SendMessageToAllUsersAsync(subject, message);
+
         return PollMapper.ToDto(updatedPoll);
     }
 
@@ -148,5 +188,10 @@ public class PollService : IPollService
                 });
         }
         return PollMapper.ToDto(deletedPoll);
+    }
+
+    public async Task<bool> ExtendPollAsync(int pollId, DateTime newEndTime, string username)
+    {
+        return await _pollRepo.ExtendPollAsync(pollId, newEndTime, username);
     }
 }

@@ -1,11 +1,1 @@
-{
-  "Version": 1,
-  "Hash": "Re51/CgXlLJDmf9f0FTAdNpJTDGOpLOAGOvqSfndBms=",
-  "Source": "PollingAPI",
-  "BasePath": "_content/PollingAPI",
-  "Mode": "Default",
-  "ManifestType": "Build",
-  "ReferencedProjectsConfiguration": [],
-  "DiscoveryPatterns": [],
-  "Assets": []
-}
+{"Version":1,"Hash":"4c0XW8h7lDlWh6rJiy+GSGraHdXccG8rbjuBJTd+CNU=","Source":"PollingAPI","BasePath":"_content/PollingAPI","Mode":"Default","ManifestType":"Build","ReferencedProjectsConfiguration":[],"DiscoveryPatterns":[],"Assets":[],"Endpoints":[]}

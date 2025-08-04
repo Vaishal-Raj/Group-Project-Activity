@@ -14,4 +14,7 @@ public class Poll
     public DateTime CreatedAt { get; set; } = DateTime.UtcNow;
     public DateTime? StartTime { get; set; }
     public DateTime? EndTime { get; set; }
+
+    public int ExtensionCount { get; set; } = 0;
+    public int MaxExtensions { get; set; } = 2;
 }

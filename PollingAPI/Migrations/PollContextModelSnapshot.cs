@@ -65,6 +65,12 @@ namespace PollingAPI.Migrations
                     b.Property<DateTime?>("EndTime")
                         .HasColumnType("timestamp with time zone");
 
+                    b.Property<int>("ExtensionCount")
+                        .HasColumnType("integer");
+
+                    b.Property<int>("MaxExtensions")
+                        .HasColumnType("integer");
+
                     b.Property<string>("Question")
                         .IsRequired()
                         .HasColumnType("text");

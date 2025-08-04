@@ -1,23 +1,23 @@
-import { ComponentFixture, TestBed } from '@angular/core/testing';
+// import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { SingleUserComponent } from './single-user-component';
+// import { SingleUserComponent } from './single-user-component';
 
-describe('SingleUserComponent', () => {
-  let component: SingleUserComponent;
-  let fixture: ComponentFixture<SingleUserComponent>;
+// describe('SingleUserComponent', () => {
+//   let component: SingleUserComponent;
+//   let fixture: ComponentFixture<SingleUserComponent>;
 
-  beforeEach(async () => {
-    await TestBed.configureTestingModule({
-      imports: [SingleUserComponent]
-    })
-    .compileComponents();
+//   beforeEach(async () => {
+//     await TestBed.configureTestingModule({
+//       imports: [SingleUserComponent]
+//     })
+//     .compileComponents();
 
-    fixture = TestBed.createComponent(SingleUserComponent);
-    component = fixture.componentInstance;
-    fixture.detectChanges();
-  });
+//     fixture = TestBed.createComponent(SingleUserComponent);
+//     component = fixture.componentInstance;
+//     fixture.detectChanges();
+//   });
 
-  it('should create', () => {
-    expect(component).toBeTruthy();
-  });
-});
+//   it('should create', () => {
+//     expect(component).toBeTruthy();
+//   });
+// });

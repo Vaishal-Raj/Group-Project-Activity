@@ -12,7 +12,7 @@ import { environment } from '../../../environments/environment';
 })
 export class Auth {
 
-  private baseUrl='http://localhost:5000/api/Authentication';
+  private baseUrl='http://localhost:5166/api/Authentication';
   private loggedInUser = new BehaviorSubject<string|null>(null);
   private profilePic = new BehaviorSubject<string|null>(null);
   private role = new BehaviorSubject<string | null>(null);

@@ -1,0 +1,40 @@
+<div class="container mt-3">
+  <h5 class="mb-3">Extend Poll Duration</h5>
+
+  <div class="mb-3">
+    <label class="form-label fw-semibold">Current End Time</label>
+    <div class="form-control-plaintext">{{ currentEndTime | date: 'medium' }}</div>
+  </div>
+
+  <form [formGroup]="extendForm" (ngSubmit)="extendPoll()">
+    <div class="mb-3">
+      <label for="newEndTime" class="form-label">New End Time</label>
+      <input
+        type="datetime-local"
+        id="newEndTime"
+        class="form-control"
+        formControlName="newEndTime"
+      />
+      @if (extendForm.get('newEndTime')?.invalid && extendForm.get('newEndTime')?.touched) {
+        <div class="text-danger">Please select a valid future datetime.</div>
+      }
+    </div>
+
+    <div *ngIf="extensionLimitReached" class="alert alert-warning mb-2">
+      Maximum number of extensions reached. You cannot extend this poll further.
+    </div>
+
+    <div *ngIf="errorMessage" class="text-danger mb-2">{{ errorMessage }}</div>
+
+    <div class="text-end">
+      <button type="button" class="btn btn-secondary me-2" (click)="cancel.emit()">Cancel</button>
+      <button
+        type="submit"
+        class="btn btn-success"
+        [disabled]="loading || extensionLimitReached"
+      >
+        {{ loading ? 'Extending...' : 'Submit Extension' }}
+      </button>
+    </div>
+  </form>
+</div>

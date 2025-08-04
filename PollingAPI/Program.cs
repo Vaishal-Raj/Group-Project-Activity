@@ -79,6 +79,8 @@ builder.Services.AddTransient<ITokenService, TokenService>();
 builder.Services.AddTransient<IPollService, PollService>();
 builder.Services.AddTransient<IVoteService, VoteService>();
 builder.Services.AddTransient<IUserService, UserService>();
+builder.Services.AddScoped<IEmailService, EmailService>();
+
 
 #endregion
 

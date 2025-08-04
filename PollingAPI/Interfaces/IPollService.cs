@@ -14,4 +14,6 @@ public interface IPollService
     public Task<PollResponseDto> UpdatePollAsync(int pollId, CreatePollDto updatedDto,string username);
     public Task<PollResponseDto> DeletePollAsync(int pollId,string username);
 
+    Task<bool> ExtendPollAsync(int pollId, DateTime newEndTime, string username);
+
 }
