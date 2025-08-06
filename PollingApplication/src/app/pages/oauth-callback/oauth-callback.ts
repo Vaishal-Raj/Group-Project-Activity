@@ -31,8 +31,9 @@ export class OauthCallback implements OnInit{
       sessionStorage.setItem('tokenExpiry',expiresAt.toString());
       this.auth.startTokenTimer(expiryStr);
 
-      if(picture)
-        sessionStorage.setItem('picture',picture);
+      // if(picture)
+      console.log(`Profile pic from google redirect -------- ${picture}`);
+      sessionStorage.setItem('picture',picture);
       this.auth.setUser(username);
       this.auth.setRole('Voter');
       this.auth.setPicture(picture);

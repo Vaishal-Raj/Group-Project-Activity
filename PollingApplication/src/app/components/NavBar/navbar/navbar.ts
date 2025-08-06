@@ -10,6 +10,7 @@ import { Auth } from '../../../services/authService/auth';
 import Swal from 'sweetalert2';
 import { NgOptimizedImage } from '@angular/common';
 import { NotificationComponent } from "../../NotificationComponent/notification-component/notification-component";
+import { DomSanitizer, SafeUrl } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-navbar',
@@ -23,14 +24,15 @@ export class Navbar implements OnInit{
 user:string='';
 role=signal<string>('');
 showSideBar:boolean=false;
-profile_pic:string|null=null;
+profile_pic:SafeUrl|null=null;
 showImageModal = false;
 signInType='';
 
 
 
  constructor(private iconSet:IconSetService,private themeService:ThemeService,
-  private eRef: ElementRef,private authService:Auth,private route:Router
+  private eRef: ElementRef,private authService:Auth,private route:Router,
+  private sanitizer: DomSanitizer
  ){
   iconSet.icons={cilList, cilSpeedometer,cilUser, cilAccountLogout,cilPlus ,cilNotes,cilPeople};
  }
@@ -71,7 +73,7 @@ closeImageModal() {
     this.authService.profilePicture$.subscribe({
       next:(data:any)=>{
         console.log(`Setting google profile pic in navbar comp : ${data}`)
-        this.profile_pic=data as string;
+        this.profile_pic = this.sanitizer.bypassSecurityTrustUrl(data); // Bypass Angular's security
       }
     })
     if(!this.role){

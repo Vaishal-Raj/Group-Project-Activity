@@ -112,7 +112,7 @@ export class Poll implements OnInit, OnDestroy {
     if (this.showOptions && this.poll) {
       if(this.pollStatus()){
            this.signalRService.joinPollGroup(this.poll.id);
-            this.toastr.success(`Joined Poll - ${this.poll.id}`, 'Poll Join Info', {
+            this.toastr.success(`Joined Poll - ${this.poll.question}`, 'Poll Join Info', {
               progressBar: true,
               positionClass: 'toast-bottom-right',
               toastClass: 'ngx-toastr custom-toast-blue',

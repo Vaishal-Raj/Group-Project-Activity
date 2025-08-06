@@ -49,13 +49,16 @@ namespace PollingAPI.Controllers
             var user = await _userRepository.GetAsync(email);
             if (user == null)
             {
+                var picUrl = authenticateResult.Principal?.FindFirst("urn:google:picture")?.Value;
                 user = await _userRepository.AddAsync(new User
                 {
                     Username = email,
-                    Role = "Voter"
+                    Role = "Voter",
+                    ImageUrl=picUrl
                 });
             }
-            var pictureUrl = authenticateResult.Principal?.FindFirst("urn:google:picture")?.Value;
+            
+            var pictureUrl = user.ImageUrl;
 
             int expiryMinutes = 2;
             var jwtToken = await _tokenService.GenerateToken(user, expiryMinutes);
